@@ -1,0 +1,20 @@
+<% @categories.each do |cat| %>
+  <% subcats = Ingredient.isolate_subcats(cat) %>
+
+  <div class="ingredient_cat">
+    <div class="ingredient_cat_head">
+      <%= cat %>
+    </div>
+    <div class="content">
+      <% subcats.each do |subcat| %>
+        <% ingredients = Ingredient.list_all_in_subcat(subcat) %>
+
+        <%= subcat %><br>
+        <% ingredients.each do |i| %>
+          <a href="/ingredients/<%= i[0] %>"><%= i[1] %></a><br>
+        <% end %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+<% end %>

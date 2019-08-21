@@ -1,0 +1,25 @@
+select all of the ingredients you have on hand:
+<form action='/found' method='post'>
+  <% @categories.each do |cat| %>
+    <% subcats = Ingredient.isolate_subcats(cat) %>
+
+    <div class="ingredient_cat">
+      <div class="ingredient_cat_head">
+        <%= cat %>
+      </div>
+      <div class="content">
+        <% subcats.each do |subcat| %>
+          <% ingredients = Ingredient.list_all_in_subcat(subcat) %>
+
+          <%= subcat %><br>
+          <% ingredients.each do |i| %>
+            <input type="checkbox" name=<%= "#{i[0]}" %> value="<%= i[1] %>"><%= i[1] %><br>
+          <% end %>
+          <br>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <input type="submit" value="Find some Recipes!">
+</form>

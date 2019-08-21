@@ -1,0 +1,17 @@
+<h1>Matches</h1>
+<% if @matches[:matches].length > 0 %>
+  <% @matches[:matches].each do |r| %>
+    <a href="/recipes/<%= r.id %>"><%= r.name %></a><br>
+  <% end %>
+<% else %>
+  There are no recipes in the database that contain all of the ingredients you selected.
+<% end %>
+
+<h1>Partial Matches</h1>
+<% if @matches[:part_matches].length > 0 %>
+  <% @matches[:part_matches].each do |r| %>
+    <a href="/recipes/<%= r.id %>"><%= r.name %></a><br>
+  <% end %>
+<% else %>
+  There are no recipes in the database that contain any of the ingredients you selected.
+<% end %>

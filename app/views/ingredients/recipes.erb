@@ -1,0 +1,11 @@
+<h1><%= @ingredient.variety %> - All Recipes</h1>
+
+
+<% if @recipes.count > 0 %>
+  <% @recipes.each do |r| %>
+    <a href="/recipes/<%= r.id %>"><%= r.name %></a>
+  <% end %>
+<% else %>
+  This ingredient is not yet featured in any recipes.<br>
+  Why not <a href="/recipes/new">create one</a>!
+<% end %>

@@ -1,0 +1,33 @@
+<h1><%= @ingredient.variety%></h1>
+<% if logged_in? && @liked == false %>
+  <form action="/ingredients/<%= @ingredient.id %>" method="post">
+    <input type="submit" value="Like">
+  </form>
+<% elsif logged_in? %>
+  <form action="/ingredients/<%= @ingredient.id %>" method="post">
+    <input type="submit" value="Unlike">
+  </form>
+<% end %>
+<%= @ingredient.like_count %> Likes
+<p>
+  <%= @ingredient.category %>
+  <% if @ingredient.category != "Spirit" %>
+     <%= " - " + @ingredient.subcategory %>
+  <% end %>
+</p>
+<% if !@used_in.nil? && @ingredient.recipes.count <= 5 %>
+  <p>Used in <%= @ingredient.recipes.count %> recipes.<br>
+  <% @used_in.each do |r| %>
+    <a href="recipes/<%= r.id %>"><%= r.name %></a><br>
+  <% end %>
+<% elsif @ingredient.recipes.count > 5 %>
+  <p>Used in <%= @ingredient.recipes.count %> recipes.<br>
+  <% @used_in.each do |r| %>
+    <a href="recipes/<%= r.id %>"><%= r.name %></a><br>
+  <% end %>
+  <a href="/ingredients/<%= @ingredient.id %>/recipes">See More</a>
+<% else %>
+  This ingredient is not yet featured in any recipes.<br>
+  Why not <a href="/recipes/new">create one</a>!
+<% end %>
+</p>

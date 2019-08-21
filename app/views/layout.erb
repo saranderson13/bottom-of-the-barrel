@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+  <meta http-http-equiv="X-UA-Compatible" content="ie-edge">
+  <title>Bottom of the Barrell</title>
+  <!-- <link rel="shortcut icon" href=".ico"> -->
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One|Tajawal&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+
+
+  <section>
+    <%= yield %>
+  </section>
+
+  <header>
+    <h1 class="logo">Bottom of the Barrell</h1>
+    <% if logged_in? %>
+      <span class="header_welcome">Welcome back, <%= current_user.name  %></span>
+    <% end %>
+    <nav class="nav_positioning">
+      <% unless url.ends_with?("/home") %>
+        <a href="/home"><button class="nav">Home</button></a>
+      <% end %>
+      <a href="/search"><button class = "nav">Search</button></a>
+      <a href="/recipes"><button class="nav">Recipes</button></a>
+      <a href="/ingredients"><button class="nav">Ingredients</button></a>
+      <% if logged_in? %>
+        <a href="/users/<%= current_user.id %>"><button class="nav">Profile</button></a>
+        <a href="/recipes/new"><button class="nav">Add Recipe</button></a>
+        <form action='/logout' method='post' style="display: inline;"><input class="nav" type="submit" value="Log Out"></form>
+      <% elsif url.ends_with?("/signup")  %>
+        <a href="/login"><button class="nav">Log In</button></a>
+      <% elsif url.ends_with?("/login") %>
+        <a href="/signup"><button class="nav">Sign Up</button></a>
+      <% else %>
+        <a href="/login"><button class="nav">Log In</button></a> <a href="/signup"><button class="nav">Sign Up</button></a>
+      <% end %><br><br>
+    </nav>
+  </header>
+
+</body>
+</html>

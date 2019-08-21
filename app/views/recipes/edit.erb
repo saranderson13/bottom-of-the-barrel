@@ -1,0 +1,40 @@
+<form action="/recipes/<%= @recipe.id %>" method="post" id="edit_recipe">
+  <input type="hidden" name="_method" value="patch">
+  <table style="display: inline-block">
+    <tr>
+      <td><label for="drink_name">Drink Name: </label></td>
+      <td><input type="text" name="drink_name" id="drink_name" value="<%= @recipe.name %>"></td>
+    </tr>
+    <tr>
+      <td valign="top"><label for="instructions">Instructions: </label></td>
+      <td><textarea form="edit_recipe" wrap="soft" rows="30" cols="60" name="instructions" id="instructions"><%= @recipe.instructions %></textarea></td>
+    </tr>
+  </table>
+
+  <% @categories.each do |cat| %>
+    <% subcats = Ingredient.isolate_subcats(cat) %>
+
+    <div class="ingredient_cat">
+      <div class="ingredient_cat_head">
+        <%= cat %>
+      </div>
+      <div class="content">
+        <% subcats.each do |subcat| %>
+          <% ingredients = Ingredient.list_all_in_subcat(subcat) %>
+
+          <%= subcat %><br>
+          <% ingredients.each do |i| %>
+            <% if @ingredient_ids.include?(i[0]) %>
+              <input type="checkbox" name=<%= "#{i[0]}" %> value="<%= i[1] %>" checked><%= i[1] %><br>
+            <% else %>
+              <input type="checkbox" name=<%= "#{i[0]}" %> value="<%= i[1] %>"><%= i[1] %><br>
+            <% end %>
+          <% end %>
+          <br>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <input type="submit" value="Edit Recipe" style="position: absolute; top: 450px; left: 90px;">
+</form>

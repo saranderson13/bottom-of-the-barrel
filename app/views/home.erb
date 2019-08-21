@@ -1,0 +1,23 @@
+<h1>Most Popular</h1>
+<% @popular.each do |r| %>
+  <a href="/recipes/<%= r.id %>"><%= r.name %></a><br>
+<% end %>
+
+<br><br>
+<h1>Recently Added</h1>
+<% @new.each do |r| %>
+  <a href="/recipes/<%= r.id %>"><%= r.name %></a><br>
+<% end %>
+
+<div class="suggestions">
+  <h1>Suggested Recipes</h1>
+  <% if !!@suggestions %>
+    <% @suggestions.each do |r| %>
+      <a href="/recipes/<%= r.id %>"><%= r.name %></a><br>
+    <% end %>
+  <% elsif logged_in? %>
+    Like more ingredients and recipes to activate suggestions!
+  <% else %>
+    Sign up or log in to see suggestions.
+  <% end %>
+</div>

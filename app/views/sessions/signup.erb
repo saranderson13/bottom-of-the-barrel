@@ -1,0 +1,30 @@
+<form action="/signup" method="post">
+  <table>
+    <tr>
+      <td><label for="name">Name: </label></td>
+      <td><input type="text" name="name" id="name"></td>
+      <% if @user && @user.errors.messages[:name] %>
+        <td><span class="error"><%= @user.errors.messages[:name][0] %></span></td>
+      <% end %>
+    </tr>
+
+    <tr>
+      <td><label for="username">Username: </label></td>
+      <td><input type="text" name="username" id="username"></td>
+      <% if @user && @user.errors.messages[:username] %>
+        <td><span class="error"><%= @user.errors.messages[:username][0] %></span></td>
+      <% end %>
+    </tr>
+
+    <tr>
+      <td><label for="password">Password: </label></td>
+      <td><input type="password" name="password" id="password"></td>
+      <% if @user && @user.errors.messages[:password] %>
+        <% errors = parse_password_error(@user).join(" ") %>
+        <td><span class="error"><%= errors %></span></td>
+      <% end %>
+    </tr>
+  </table>
+
+  <input type="submit" value="Sign Up">
+</form>

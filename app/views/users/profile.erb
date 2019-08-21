@@ -1,0 +1,47 @@
+<% if logged_in? && @user.id == current_user.id %>
+  <h1>Hello, <%= @user.name %>!</h1>
+<% else %>
+  <h1><%= @user.name %></h1>
+<% end %>
+
+<p><h3>Creations</h3>
+<% if @user.recipes.length > 0 %>
+  <% @user.recipes.each do |r| %>
+    <a href="/recipes/<%= r.id %>"><%= r.name %></a><br>
+  <% end %>
+<% else %>
+  You have not created any recipes yet.<br>
+  Why not <a href="/recipes/new">create one</a>!
+<% end %>
+</p>
+<br><br>
+<p><h3>Fave Recipes</h3>
+<% if @user.recipe_likes.length > 0 %>
+  <% @user.recipe_likes.each do |rl| %>
+    <a href="/recipes/<%=rl.id %>"><%= rl.name %></a><br>
+  <% end %>
+<% else %>
+  You have liked any recipes yet.<br>
+  Why not <a href="/recipes">go explore them!</a>!
+<% end %>
+</p>
+<br><br>
+<p><h3>Fave Ingredients</h3>
+<% if @user.ingredient_likes.length > 0 %>
+  <% @user.ingredient_likes.each do |il| %>
+    <a href="/ingredients/<%=il.id %>"><%= il.variety %></a><br>
+  <% end %>
+<% else %>
+  You have liked any ingredients yet.<br>
+  Why not <a href="/ingredients">go explore them!</a>!
+<% end %>
+</p>
+
+<br><br>
+<% if logged_in? && @user.id == current_user.id %>
+  <a href="/users/<%= @user.id %>/edit"><button>Edit Profile</button></a>
+  <form action="/users/<%= @user.id %>" method="post" style="display: inline">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Account">
+  </form>
+<% end %>

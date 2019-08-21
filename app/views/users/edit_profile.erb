@@ -1,0 +1,16 @@
+<form action="/users/<%= @user.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <table>
+    <tr>
+      <td><label for="name">Name: </label></td>
+      <td><input type="text" name="name" id="name" value="<%= @user.name %>"></td>
+      <% if @user && @user.errors.messages[:name] %>
+        <td><span class="error"><%= @user.errors.messages[:name][0] %></span></td>
+      <% end %>
+    </tr>
+
+    <!-- Add link to change password? -->
+  </table>
+
+  <input type="submit" value="Edit Profile">
+</form>
